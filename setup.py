@@ -1,6 +1,6 @@
 from distutils.core import setup
 
-setup(name='Playground',
+setup(name='playground',
       version='1.0',
       description='Google Active Learning Playground',
       author='Yilei Yang',
