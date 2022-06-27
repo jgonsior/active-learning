@@ -1,4 +1,5 @@
 from setuptools import setup
+from setuptools import find_packages
 
 setup(name='playground',
       version='1.0',
@@ -7,8 +8,5 @@ setup(name='playground',
       long_description_content_type="text/markdown",
       author='Yilei Yang',
       url='https://github.com/google/active-learning',
-      packages=['playground','playground.utils','playground.sampling_methods'],
-      package_dir={'playground':".",
-                   'playground.utils':"./utils",
-                   'playground.sampling_methods':"./sampling_methods"}
+      packages=find_packages()
      )
