@@ -32,7 +32,7 @@ from __future__ import print_function
 
 import numpy as np
 from sklearn.metrics import pairwise_distances
-from sampling_methods.sampling_def import SamplingMethod
+from playground.sampling_methods.sampling_def import SamplingMethod
 
 
 class kCenterGreedy(SamplingMethod):
@@ -50,12 +50,12 @@ class kCenterGreedy(SamplingMethod):
     def update_distances(self, cluster_centers, only_new=True, reset_dist=False):
         """Update min distances given cluster centers.
 
-    Args:
-      cluster_centers: indices of cluster centers
-      only_new: only calculate distance for newly selected points and update
-        min_distances.
-      rest_dist: whether to reset min_distances.
-    """
+        Args:
+          cluster_centers: indices of cluster centers
+          only_new: only calculate distance for newly selected points and update
+            min_distances.
+          rest_dist: whether to reset min_distances.
+        """
 
         if reset_dist:
             self.min_distances = None
@@ -75,18 +75,18 @@ class kCenterGreedy(SamplingMethod):
 
     def select_batch_(self, model, already_selected, N, **kwargs):
         """
-    Diversity promoting active learning method that greedily forms a batch
-    to minimize the maximum distance to a cluster center among all unlabeled
-    datapoints.
+        Diversity promoting active learning method that greedily forms a batch
+        to minimize the maximum distance to a cluster center among all unlabeled
+        datapoints.
 
-    Args:
-      model: model with scikit-like API with decision_function implemented
-      already_selected: index of datapoints already selected
-      N: batch size
+        Args:
+          model: model with scikit-like API with decision_function implemented
+          already_selected: index of datapoints already selected
+          N: batch size
 
-    Returns:
-      indices of points selected to minimize distance to cluster centers
-    """
+        Returns:
+          indices of points selected to minimize distance to cluster centers
+        """
 
         try:
             # Assumes that the transform function takes in original data and not

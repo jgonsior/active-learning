@@ -43,9 +43,9 @@ from absl import app
 from absl import flags
 from tensorflow import gfile
 
-from sampling_methods.constants import AL_MAPPING
-from sampling_methods.constants import get_AL_sampler
-from sampling_methods.constants import get_wrapper_AL_mapping
+from playground.sampling_methods.constants import AL_MAPPING
+from playground.sampling_methods.constants import get_AL_sampler
+from playground.sampling_methods.constants import get_wrapper_AL_mapping
 from utils import utils
 
 flags.DEFINE_string("dataset", "letter", "Dataset name")
@@ -121,39 +121,39 @@ def generate_one_curve(
 ):
     """Creates one learning curve for both active and passive learning.
 
-  Will calculate accuracy on validation set as the number of training data
-  points increases for both PL and AL.
-  Caveats: training method used is sensitive to sorting of the data so we
-    resort all intermediate datasets
+    Will calculate accuracy on validation set as the number of training data
+    points increases for both PL and AL.
+    Caveats: training method used is sensitive to sorting of the data so we
+      resort all intermediate datasets
 
-  Args:
-    X: training data
-    y: training labels
-    sampler: sampling class from sampling_methods, assumes reference
-      passed in and sampler not yet instantiated.
-    score_model: model used to score the samplers.  Expects fit and predict
-      methods to be implemented.
-    seed: seed used for data shuffle and other sources of randomness in sampler
-      or model training
-    warmstart_size: float or int.  float indicates percentage of train data
-      to use for initial model
-    batch_size: float or int.  float indicates batch size as a percent of
-      training data
-    select_model: defaults to None, in which case the score model will be
-      used to select new datapoints to label.  Model must implement fit, predict
-      and depending on AL method may also need decision_function.
-    confusion: percentage of labels of one class to flip to the other
-    active_p: percent of batch to allocate to active learning
-    max_points: limit dataset size for preliminary
-    standardize_data: wheter to standardize the data to 0 mean unit variance
-    norm_data: whether to normalize the data.  Default is False for logistic
-      regression.
-    train_horizon: how long to draw the curve for.  Percent of training data.
+    Args:
+      X: training data
+      y: training labels
+      sampler: sampling class from playground.sampling_methods, assumes reference
+        passed in and sampler not yet instantiated.
+      score_model: model used to score the samplers.  Expects fit and predict
+        methods to be implemented.
+      seed: seed used for data shuffle and other sources of randomness in sampler
+        or model training
+      warmstart_size: float or int.  float indicates percentage of train data
+        to use for initial model
+      batch_size: float or int.  float indicates batch size as a percent of
+        training data
+      select_model: defaults to None, in which case the score model will be
+        used to select new datapoints to label.  Model must implement fit, predict
+        and depending on AL method may also need decision_function.
+      confusion: percentage of labels of one class to flip to the other
+      active_p: percent of batch to allocate to active learning
+      max_points: limit dataset size for preliminary
+      standardize_data: wheter to standardize the data to 0 mean unit variance
+      norm_data: whether to normalize the data.  Default is False for logistic
+        regression.
+      train_horizon: how long to draw the curve for.  Percent of training data.
 
-  Returns:
-    results: dictionary of results for all samplers
-    sampler_states: dictionary of sampler objects for debugging
-  """
+    Returns:
+      results: dictionary of results for all samplers
+      sampler_states: dictionary of sampler objects for debugging
+    """
     # TODO(lishal): add option to find best hyperparameter setting first on
     # full dataset and fix the hyperparameter for the rest of the routine
     # This will save computation and also lead to more stable behavior for the
