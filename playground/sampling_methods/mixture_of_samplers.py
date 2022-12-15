@@ -40,7 +40,7 @@ class MixtureOfSamplers(SamplingMethod):
                y,
                seed,
                mixture={'methods': ('margin', 'uniform'),
-                        'weight': (0.5, 0.5)},
+                        'weights': (0.5, 0.5)},
                samplers=None):
     self.X = X
     self.y = y
