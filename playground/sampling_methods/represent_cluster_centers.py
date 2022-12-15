@@ -62,7 +62,7 @@ class RepresentativeClusterMeanSampling(SamplingMethod):
     distances = abs(model.decision_function(self.X))
     min_margin_by_class = np.min(abs(distances[already_selected]),axis=0)
     unlabeled_in_margin = np.array([i for i in range(len(self.y))
-                                    if i (not in already_selected) and
+                                    if (i not in already_selected) and
                                     any(distances[i]<min_margin_by_class)])
     if len(unlabeled_in_margin) < N:
       print("Not enough points within margin of classifier, using simple uncertainty sampling")
