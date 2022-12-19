@@ -22,8 +22,8 @@ from __future__ import print_function
 
 import copy
 
-from playground.sampling_methods.sampling_def import SamplingMethod
-from playground.sampling_methods.constants import AL_MAPPING, get_base_AL_mapping
+from sampling_methods.sampling_def import SamplingMethod
+from sampling_methods.constants import AL_MAPPING, get_base_AL_mapping
 
 get_base_AL_mapping()
 
@@ -41,7 +41,7 @@ class MixtureOfSamplers(SamplingMethod):
         X,
         y,
         seed,
-        mixture={"methods": ("margin", "uniform"), "weight": (0.5, 0.5)},
+        mixture={"methods": ("margin", "uniform"), "weights": (0.5, 0.5)},
         samplers=None,
     ):
         self.X = X

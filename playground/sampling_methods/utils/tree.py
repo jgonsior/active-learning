@@ -32,8 +32,8 @@ import copy
 class Node(object):
     """Node class for hierarchical clustering.
 
-  Initialized with name and left right children.
-  """
+    Initialized with name and left right children.
+    """
 
     def __init__(self, name, left=None, right=None):
         self.name = name
@@ -54,18 +54,18 @@ class Node(object):
 class Tree(object):
     """Tree object for traversing a binary tree.
 
-  Most methods apply to trees in general with the exception of get_pruning
-  which is specific to the hierarchical clustering AL method.
-  """
+    Most methods apply to trees in general with the exception of get_pruning
+    which is specific to the hierarchical clustering AL method.
+    """
 
     def __init__(self, root, node_dict):
         """Initializes tree and creates all nodes in node_dict.
 
-    Args:
-      root: id of the root node
-      node_dict: dictionary with node_id as keys and entries indicating
-        left and right child of node respectively.
-    """
+        Args:
+          root: id of the root node
+          node_dict: dictionary with node_id as keys and entries indicating
+            left and right child of node respectively.
+        """
         self.node_dict = node_dict
         self.root = self.make_tree(root)
         self.nodes = {}
@@ -134,9 +134,9 @@ class Tree(object):
 
     def create_child_leaves_mapping(self, leaves):
         """DP for creating child leaves mapping.
-    
-    Storing in dict to save recompute.
-    """
+
+        Storing in dict to save recompute.
+        """
         self.n_leaves = len(leaves)
         for v in leaves:
             self.leaves_mapping[v] = [v]

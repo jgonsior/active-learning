@@ -26,7 +26,7 @@ from __future__ import print_function
 
 from sklearn.cluster import MiniBatchKMeans
 import numpy as np
-from playground.sampling_methods.sampling_def import SamplingMethod
+from sampling_methods.sampling_def import SamplingMethod
 
 
 class RepresentativeClusterMeanSampling(SamplingMethod):
@@ -65,7 +65,8 @@ class RepresentativeClusterMeanSampling(SamplingMethod):
             [
                 i
                 for i in range(len(self.y))
-                if i not in already_selected and any(distances[i] < min_margin_by_class)
+                if (i not in already_selected)
+                and any(distances[i] < min_margin_by_class)
             ]
         )
         if len(unlabeled_in_margin) < N:

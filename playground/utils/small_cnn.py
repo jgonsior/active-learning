@@ -36,12 +36,12 @@ import tensorflow as tf
 class SmallCNN(object):
     """Small convnet that matches sklearn api.
 
-  Implements model from
-  https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
-  Adapts for inputs of variable size, expects data to be 4d tensor, with
-  # of obserations as first dimension and other dimensions to correspond to
-  length width and # of channels in image.
-  """
+    Implements model from
+    https://github.com/fchollet/keras/blob/master/examples/cifar10_cnn.py
+    Adapts for inputs of variable size, expects data to be 4d tensor, with
+    # of obserations as first dimension and other dimensions to correspond to
+    length width and # of channels in image.
+    """
 
     def __init__(
         self,

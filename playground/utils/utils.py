@@ -59,14 +59,14 @@ class Logger(object):
 def create_checker_unbalanced(split, n, grid_size):
     """Creates a dataset with two classes that occupy one color of checkboard.
 
-  Args:
-    split: splits to use for class imbalance.
-    n: number of datapoints to sample.
-    grid_size: checkerboard size.
-  Returns:
-    X: 2d features.
-    y: binary class.
-  """
+    Args:
+      split: splits to use for class imbalance.
+      n: number of datapoints to sample.
+      grid_size: checkerboard size.
+    Returns:
+      X: 2d features.
+      y: binary class.
+    """
     y = np.zeros(0)
     X = np.zeros((0, 2))
     for i in range(grid_size):
@@ -97,19 +97,19 @@ def flatten_X(X):
 def get_mldata(data_dir, name):
     """Loads data from data_dir.
 
-  Looks for the file in data_dir.
-  Assumes that data is in pickle format with dictionary fields data and target.
+    Looks for the file in data_dir.
+    Assumes that data is in pickle format with dictionary fields data and target.
 
 
-  Args:
-    data_dir: directory to look in
-    name: dataset name, assumes data is saved in the save_dir with filename
-      <name>.pkl
-  Returns:
-    data and targets
-  Raises:
-    NameError: dataset not found in data folder.
-  """
+    Args:
+      data_dir: directory to look in
+      name: dataset name, assumes data is saved in the save_dir with filename
+        <name>.pkl
+    Returns:
+      data and targets
+    Raises:
+      NameError: dataset not found in data folder.
+    """
     dataname = name
     if dataname == "checkerboard":
         X, y = create_checker_unbalanced(split=[1.0 / 5, 4.0 / 5], n=10000, grid_size=4)
@@ -129,15 +129,15 @@ def get_mldata(data_dir, name):
 def filter_data(X, y, keep=None):
     """Filters data by class indicated in keep.
 
-  Args:
-    X: train data
-    y: train targets
-    keep: defaults to None which will keep everything, otherwise takes a list
-      of classes to keep
+    Args:
+      X: train data
+      y: train targets
+      keep: defaults to None which will keep everything, otherwise takes a list
+        of classes to keep
 
-  Returns:
-    filtered data and targets
-  """
+    Returns:
+      filtered data and targets
+    """
     if keep is None:
         return X, y
     keep_ind = [i for i in range(len(y)) if y[i] in keep]
@@ -147,13 +147,13 @@ def filter_data(X, y, keep=None):
 def get_class_counts(y_full, y):
     """Gets the count of all classes in a sample.
 
-  Args:
-    y_full: full target vector containing all classes
-    y: sample vector for which to perform the count
-  Returns:
-    count of classes for the sample vector y, the class order for count will
-    be the same as long as same y_full is fed in
-  """
+    Args:
+      y_full: full target vector containing all classes
+      y: sample vector for which to perform the count
+    Returns:
+      count of classes for the sample vector y, the class order for count will
+      be the same as long as same y_full is fed in
+    """
     classes = np.unique(y_full)
     classes = np.sort(classes)
     unique, counts = np.unique(y, return_counts=True)
@@ -170,17 +170,17 @@ def get_class_counts(y_full, y):
 def flip_label(y, percent_random):
     """Flips a percentage of labels for one class to the other.
 
-  Randomly sample a percent of points and randomly label the sampled points as
-  one of the other classes.
-  Does not introduce bias.
+    Randomly sample a percent of points and randomly label the sampled points as
+    one of the other classes.
+    Does not introduce bias.
 
-  Args:
-    y: labels of all datapoints
-    percent_random: percent of datapoints to corrupt the labels
+    Args:
+      y: labels of all datapoints
+      percent_random: percent of datapoints to corrupt the labels
 
-  Returns:
-    new labels with noisy labels for indicated percent of data
-  """
+    Returns:
+      new labels with noisy labels for indicated percent of data
+    """
     classes = np.unique(y)
     y_orig = copy.copy(y)
     indices = range(y_orig.shape[0])
@@ -203,17 +203,17 @@ def flip_label(y, percent_random):
 def get_model(method, seed=13):
     """Construct sklearn model using either logistic regression or linear svm.
 
-  Wraps grid search on regularization parameter over either logistic regression
-  or svm, returns constructed model
+    Wraps grid search on regularization parameter over either logistic regression
+    or svm, returns constructed model
 
-  Args:
-    method: string indicating scikit method to use, currently accepts logistic
-      and linear svm.
-    seed: int or rng to use for random state fed to scikit method
+    Args:
+      method: string indicating scikit method to use, currently accepts logistic
+        and linear svm.
+      seed: int or rng to use for random state fed to scikit method
 
-  Returns:
-    scikit learn model
-  """
+    Returns:
+      scikit learn model
+    """
     # TODO(lishal): extend to include any scikit model that implements
     #   a decision function.
     # TODO(lishal): for kernel methods, currently using default value for gamma
@@ -254,16 +254,16 @@ def get_model(method, seed=13):
 def calculate_entropy(batch_size, y_s):
     """Calculates KL div between training targets and targets selected by AL.
 
-  Args:
-    batch_size: batch size of datapoints selected by AL
-    y_s: vector of datapoints selected by AL.  Assumes that the order of the
-      data is the order in which points were labeled by AL.  Also assumes
-      that in the offline setting y_s will eventually overlap completely with
-      original training targets.
-  Returns:
-    entropy between actual distribution of classes and distribution of
-    samples selected by AL
-  """
+    Args:
+      batch_size: batch size of datapoints selected by AL
+      y_s: vector of datapoints selected by AL.  Assumes that the order of the
+        data is the order in which points were labeled by AL.  Also assumes
+        that in the offline setting y_s will eventually overlap completely with
+        original training targets.
+    Returns:
+      entropy between actual distribution of classes and distribution of
+      samples selected by AL
+    """
     n_batches = int(np.ceil(len(y_s) * 1.0 / batch_size))
     counts = get_class_counts(y_s, y_s)
     true_dist = counts / (len(y_s) * 1.0)
@@ -281,19 +281,19 @@ def get_train_val_test_splits(
 ):
     """Return training, validation, and test splits for X and y.
 
-  Args:
-    X: features
-    y: targets
-    max_points: # of points to use when creating splits.
-    seed: seed for shuffling.
-    confusion: labeling noise to introduce.  0.1 means randomize 10% of labels.
-    seed_batch: # of initial datapoints to ensure sufficient class membership.
-    split: percent splits for train, val, and test.
-  Returns:
-    indices: shuffled indices to recreate splits given original input data X.
-    y_noise: y with noise injected, needed to reproduce results outside of
-      run_experiments using original data.
-  """
+    Args:
+      X: features
+      y: targets
+      max_points: # of points to use when creating splits.
+      seed: seed for shuffling.
+      confusion: labeling noise to introduce.  0.1 means randomize 10% of labels.
+      seed_batch: # of initial datapoints to ensure sufficient class membership.
+      split: percent splits for train, val, and test.
+    Returns:
+      indices: shuffled indices to recreate splits given original input data X.
+      y_noise: y with noise injected, needed to reproduce results outside of
+        run_experiments using original data.
+    """
     np.random.seed(seed)
     X_copy = copy.copy(X)
     y_copy = copy.copy(y)

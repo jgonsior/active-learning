@@ -28,10 +28,7 @@ from __future__ import print_function
 
 import numpy as np
 
-from playground.sampling_methods.wrapper_sampler_def import (
-    AL_MAPPING,
-    WrapperSamplingMethod,
-)
+from sampling_methods.wrapper_sampler_def import AL_MAPPING, WrapperSamplingMethod
 
 
 class BanditDiscreteSampler(WrapperSamplingMethod):

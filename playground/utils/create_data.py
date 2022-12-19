@@ -62,12 +62,12 @@ class Dataset(object):
 def get_csv_data(filename):
     """Parse csv and return Dataset object with data and targets.
 
-  Create pickle data from csv, assumes the first column contains the targets
-  Args:
-    filename: complete path of the csv file
-  Returns:
-    Dataset object
-  """
+    Create pickle data from csv, assumes the first column contains the targets
+    Args:
+      filename: complete path of the csv file
+    Returns:
+      Dataset object
+    """
     f = gfile.GFile(filename, "r")
     mat = []
     for l in f:
@@ -86,10 +86,10 @@ def get_csv_data(filename):
 def get_wikipedia_talk_data():
     """Get wikipedia talk dataset.
 
-  See here for more information about the dataset:
-  https://figshare.com/articles/Wikipedia_Detox_Data/4054689
-  Downloads annotated comments and annotations.
-  """
+    See here for more information about the dataset:
+    https://figshare.com/articles/Wikipedia_Detox_Data/4054689
+    Downloads annotated comments and annotations.
+    """
 
     ANNOTATED_COMMENTS_URL = "https://ndownloader.figshare.com/files/7554634"
     ANNOTATIONS_URL = "https://ndownloader.figshare.com/files/7554637"
@@ -161,9 +161,9 @@ def get_keras_data(dataname):
 def get_cifar10():
     """Get CIFAR-10 dataset from source dir.
 
-  Slightly redundant with keras function to get cifar10 but this returns
-  in flat format instead of keras numpy image tensor.
-  """
+    Slightly redundant with keras function to get cifar10 but this returns
+    in flat format instead of keras numpy image tensor.
+    """
     url = "http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz"
 
     def download_file(url):
