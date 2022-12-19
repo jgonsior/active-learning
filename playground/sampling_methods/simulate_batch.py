@@ -23,8 +23,8 @@ import math
 
 import numpy as np
 
-from sampling_methods.wrapper_sampler_def import AL_MAPPING
-from sampling_methods.wrapper_sampler_def import WrapperSamplingMethod
+from playground.sampling_methods.wrapper_sampler_def import AL_MAPPING
+from playground.sampling_methods.wrapper_sampler_def import WrapperSamplingMethod
 
 
 class SimulateBatchSampler(WrapperSamplingMethod):

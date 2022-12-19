@@ -129,7 +129,7 @@ def generate_one_curve(
     Args:
       X: training data
       y: training labels
-      sampler: sampling class from sampling_methods, assumes reference
+      sampler: sampling class from playground.sampling_methods, assumes reference
         passed in and sampler not yet instantiated.
       score_model: model used to score the samplers.  Expects fit and predict
         methods to be implemented.
