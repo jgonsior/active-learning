@@ -106,16 +106,14 @@ class kCenterGreedy(SamplingMethod):
                 # Initialize centers with a randomly selected datapoint
                 ind = np.random.choice(np.arange(self.n_obs))
             else:
-                ind = np.argmax(self.min_distances)
+                ind = np.argmax(self.min_distances, axis=0)[0]
+
             # New examples should not be in already selected since those points
             # should have min_distance of zero to a cluster center.
             assert ind not in already_selected
 
             self.update_distances([ind], only_new=True, reset_dist=False)
             new_batch.append(ind)
-        print(
-            "Maximum distance from cluster centers is %0.2f" % max(self.min_distances)
-        )
 
         self.already_selected = already_selected
 
