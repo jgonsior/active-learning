@@ -171,9 +171,10 @@ class HierarchicalClusterAL(SamplingMethod):
                 complete_counts.append(counts[index])
         return np.array(complete_counts)
 
-    def observe_labels(self, labeled):
-        for i in labeled:
-            self.y_labels[i] = labeled[i]
+    def observe_labels(self, indices, labels):
+        for i, label in zip(indices, labels):
+            self.y_labels[i] = label
+
         self.classes = np.array(
             sorted(list(set([self.y_labels[k] for k in self.y_labels])))
         )
@@ -340,7 +341,7 @@ class HierarchicalClusterAL(SamplingMethod):
 
     def select_batch_(self, N, already_selected, labeled, y, **kwargs):
         # Observe labels for previously recommended batches
-        self.observe_labels(labeled)
+        self.observe_labels(labeled, y[labeled])
 
         if not self.initialized:
             self.initialize_algo()
